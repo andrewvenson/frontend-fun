@@ -1,7 +1,7 @@
 import {useState} from "react"
 import './App.css';
 import Heart from "./components/heart.jsx";
-import styled, {keyframes} from "styled-components";
+import styled, {css, keyframes} from "styled-components";
 import { TypeAnimation } from 'react-type-animation';
 import CoverPhoto from "./images/coverphoto.png";
 
@@ -37,7 +37,7 @@ const TypeAnimationContainer = styled.div`
 
 const ImageContainer = styled.div`
     padding: 10px;
-    border: 3px solid whitesmoke;
+    border: 1px solid whitesmoke;
     border-left: none;
     border-right: none;
     margin-top: 30px
@@ -56,7 +56,6 @@ const floater = keyframes`
   50%{transform: translateY(10%);transition: ease 0.5s;}
 `;
 
-
 const FloatingClickMe = styled.div`
   transform: translateY(-10%);
   animation: ${floater} 1.5s infinite;
@@ -64,8 +63,30 @@ const FloatingClickMe = styled.div`
   font-size: 40px;
 `;
 
-function App() {
+const borderPulse = keyframes`
+  0% {
+    box-shadow: 3px 5px 10px #39373b;
+    opacity: 0.7;
+  }
+  50%{
+    box-shadow: 3px 10px 20px #39373b;
+    opacity: 1;
+  }
+  100% {
+    box-shadow: 3px 5px 10px #39373b;
+    opacity: 0.7;
+  }
+`;
 
+const CoverImage = styled.img`
+    border-radius: 50%;
+    box-shadow: 3px 5px 10px #39373b;
+    border: 1px solid white;
+    animation: ${props => props.pulse ? css`${borderPulse} 2s infinite` : "none"};
+`;
+
+
+function App() {
   const [showPointer, setShowPointer] = useState(false);
 
   return (
@@ -73,16 +94,16 @@ function App() {
         <TypeAnimationContainer>
             <TypeAnimation
               sequence={[
-                'Hey baby girl!', // Types 'One'
-                1000, // Waits 1s
-                "I built this cause I'm broke...😅", // Deletes 'One' and types 'Two'
-                2000, // Waits 2s
-                'Peroooo, most importantly because I LOVE YOU!🥰', // Types 'Three' without deleting 'Two'
-                2000, // Waits 2s
-                'Happy Anniversary Nadaia 💘', // Types 'Three' without deleting 'Two'
+                'Hey baby girl!',
+                1000,
+                "I built this cause I'm broke...😅",
+                2000,
+                'Peroooo, most importantly because I LOVE YOU!🥰',
+                2000,
+                'Happy Anniversary Nadaia 💘',
                 3000,
                 () => {
-                  console.log('Sequence completed'); // Place optional callbacks anywhere in the array
+                  console.log('Done');
                 }
               ]}
               wrapper="span"
@@ -91,7 +112,7 @@ function App() {
                 style={{ fontSize: '2.5em', display: 'inline-block', color: "whitesmoke", textShadow: "3px 4px 7px black"}}
             />
             <ImageContainer>
-                <img src={CoverPhoto} style={{borderRadius: "50%", boxShadow: "3px 10px 18px #39373b"}}/>
+                <CoverImage src={CoverPhoto} pulse={showPointer} />
             </ImageContainer>
             <FloatArea>
               {showPointer && <FloatingClickMe>👆</FloatingClickMe>}
@@ -102,11 +123,11 @@ function App() {
                     () => {
                         setShowPointer(true);
                     },
-                    'Lets see how our past month went...', // Types 'One'
+                    'Lets see how our past month went...',
                       1000,
                       "Click us to 👀",
                     () => {
-                      console.log('Sequence completed'); // Place optional callbacks anywhere in the array
+                      console.log('Done');
                     }
                   ]}
                   wrapper="span"

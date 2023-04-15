@@ -5,6 +5,7 @@ import StarContainer from "./components/star-container.jsx";
 import styled, {css, keyframes} from "styled-components";
 import { TypeAnimation } from 'react-type-animation';
 import CoverPhoto from "./images/coverphoto.png";
+import Rose from "./images/rose.png";
 
 const HeartContainer = styled.div`
     padding: 50px;
@@ -87,6 +88,54 @@ const CoverImage = styled.img`
     animation: ${props => props.pulse ? css`${borderPulse} 2s infinite` : "none"};
 `;
 
+const RoseImage = styled.img`
+    width: 75px;
+    height: 75px;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+    margin: 10px;
+    transform: translateY(-10%);
+    animation: ${floater} 3s infinite;
+    transition: ease 1s;
+`;
+
+const RoseImageRight = styled.img`
+    width: 75px;
+    height: 75px;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+    margin: 10px;
+    position: absolute;
+    right: 0;
+    transform: translateY(-10%);
+    animation: ${floater} 3s infinite;
+    transition: ease 1s;
+`;
+
+const RoseImageBottomLeft = styled.img`
+    width: 75px;
+    height: 75px;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+    margin: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateY(-10%);
+    animation: ${floater} 3s infinite;
+    transition: ease 1s;
+`;
+
+const RoseImageBottomRight = styled.img`
+    width: 75px;
+    height: 75px;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+    margin: 10px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translateY(-10%);
+    animation: ${floater} 3s infinite;
+    transition: ease 1s;
+`;
+
 
 function App() {
   const [showPointer, setShowPointer] = useState(false);
@@ -121,12 +170,12 @@ function App() {
               <br/>
                 <TypeAnimation
                   sequence={[
-                    17000,
+                    18000,
                     () => {
                         setShowPointer(true);
                     },
                     'Lets see how our past month went...',
-                      1000,
+                      2000,
                       "Click us to 👀",
                     () => {
                       console.log('Done');
@@ -146,6 +195,10 @@ function App() {
             }
         </HeartContainer>
         <StarContainer />
+        <RoseImage src={Rose} />
+        <RoseImageRight src={Rose} />
+        <RoseImageBottomLeft src={Rose} />
+        <RoseImageBottomRight src={Rose} />
     </div>
   );
 }

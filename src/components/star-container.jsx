@@ -15,7 +15,7 @@ const Container = styled.div`
 const StarContainer = () => {
     return (
         <Container>
-            {Array.from({length: 100}).map((_, index) => <Star key={index}/>)}
+            {Array.from({length: 120}).map((_, index) => <Star key={index}/>)}
         </Container>
     );
 }

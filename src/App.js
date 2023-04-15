@@ -1,6 +1,7 @@
 import {useState} from "react"
 import './App.css';
 import Heart from "./components/heart.jsx";
+import StarContainer from "./components/star-container.jsx";
 import styled, {css, keyframes} from "styled-components";
 import { TypeAnimation } from 'react-type-animation';
 import CoverPhoto from "./images/coverphoto.png";
@@ -14,6 +15,7 @@ const HeartContainer = styled.div`
     left: 0px;
     width: 100%;
     height: 100%;
+    z-index: 500
 `;
 
 const TypeAnimationContainer = styled.div`
@@ -143,6 +145,7 @@ function App() {
                 })
             }
         </HeartContainer>
+        <StarContainer />
     </div>
   );
 }

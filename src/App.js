@@ -4,8 +4,6 @@ import Heart from "./components/heart.jsx";
 import StarContainer from "./components/star-container.jsx";
 import styled, {css, keyframes} from "styled-components";
 import { TypeAnimation } from 'react-type-animation';
-import CoverPhoto from "./images/coverphoto.png";
-import Rose from "./images/rose.png";
 
 const HeartContainer = styled.div`
     padding: 50px;
@@ -43,6 +41,7 @@ const ImageContainer = styled.div`
     border: 1px solid whitesmoke;
     border-left: none;
     border-right: none;
+    border-radius: 50%;
     margin-top: 30px
 `;
 
@@ -52,11 +51,22 @@ const FloatArea = styled.div`
   flex-direction:column;
   align-items: center;
   justify-content: center;
+  margin-top: 50px;
 `;
 
 const floater = keyframes`
-  0%{transform: translateY(-10%);transition: ease 0.5s;}
-  50%{transform: translateY(10%);transition: ease 0.5s;}
+  0%{
+    transition: ease 0.5s;
+    transform: scale(1);
+  }
+  50%{
+    transition: ease 0.5s;
+    transform: scale(1.1) translateY(-5%);
+  }
+  100%{
+    transition: ease 0.5s;
+    transform: scale(1) translateY(5%)
+  }
 `;
 
 const FloatingClickMe = styled.div`
@@ -68,72 +78,83 @@ const FloatingClickMe = styled.div`
 
 const borderPulse = keyframes`
   0% {
-    box-shadow: 3px 5px 10px #39373b;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
     opacity: 0.7;
+    transform: scale(1);
   }
   50%{
-    box-shadow: 3px 10px 20px #39373b;
+    filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.3));
     opacity: 1;
+    transform: scale(1.1);
   }
   100% {
-    box-shadow: 3px 5px 10px #39373b;
+    filter: drop-shadow(4px 8px 16px rgba(0, 0, 0, 0.3));
     opacity: 0.7;
+    transform: scale(1);
   }
 `;
 
 const CoverImage = styled.img`
-    border-radius: 50%;
-    box-shadow: 3px 5px 10px #39373b;
-    border: 1px solid white;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
     animation: ${props => props.pulse ? css`${borderPulse} 2s infinite` : "none"};
+    margin-top: 50px;
 `;
 
-const RoseImage = styled.img`
-    width: 75px;
-    height: 75px;
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+const BrightStar = styled.div`
+    width: 4px;
+    height: 4px;
+    content: "";
+    filter: drop-shadow(2px 2px 2px whitesmoke);
     margin: 10px;
-    transform: translateY(-10%);
     animation: ${floater} 3s infinite;
     transition: ease 1s;
+    background-color: lightgray;
+    border-radius: 50%;
 `;
 
-const RoseImageRight = styled.img`
-    width: 75px;
-    height: 75px;
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+const BrightStarRight = styled.div`
+    width: 5px;
+    height: 5px;
+    content: "";
+    filter: drop-shadow(2px 2px 2px whitesmoke);
     margin: 10px;
+    animation: ${floater} 3s infinite;
+    transition: ease 1s;
+    background-color: lightgray;
+    border-radius: 50%;
     position: absolute;
     right: 0;
-    transform: translateY(-10%);
-    animation: ${floater} 3s infinite;
-    transition: ease 1s;
+    top: 0;
 `;
 
-const RoseImageBottomLeft = styled.img`
-    width: 75px;
-    height: 75px;
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+const BrightStarBottomRight = styled.div`
+    width: 3px;
+    height: 3px;
+    content: "";
+    filter: drop-shadow(2px 2px 2px whitesmoke);
     margin: 10px;
+    animation: ${floater} 3s infinite;
+    transition: ease 1s;
+    background-color: lightgray;
+    border-radius: 50%;
     position: absolute;
+    right: 0;
     bottom: 0;
+`;
+
+const BrightStarBottomLeft = styled.div`
+    width: 2px;
+    height: 2px;
+    content: "";
+    filter: drop-shadow(2px 2px 2px whitesmoke);
+    margin: 10px;
+    animation: ${floater} 3s infinite;
+    transition: ease 1s;
+    background-color: lightgray;
+    border-radius: 50%;
+    position: absolute;
     left: 0;
-    transform: translateY(-10%);
-    animation: ${floater} 3s infinite;
-    transition: ease 1s;
-`;
-
-const RoseImageBottomRight = styled.img`
-    width: 75px;
-    height: 75px;
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
-    margin: 10px;
-    position: absolute;
     bottom: 0;
-    right: 0;
-    transform: translateY(-10%);
-    animation: ${floater} 3s infinite;
-    transition: ease 1s;
 `;
 
 
@@ -145,41 +166,25 @@ function App() {
         <TypeAnimationContainer>
             <TypeAnimation
               sequence={[
-                'Hey baby girl!',
+                'Hello Humans🌍',
                 1000,
-                "I built this cause I'm broke...😅",
-                2000,
-                'Peroooo, most importantly because I LOVE YOU!🥰',
-                2000,
-                'Happy Anniversary Nadaia 💘',
-                3000,
-                () => {
-                  console.log('Done');
-                }
               ]}
               wrapper="span"
               cursor={true}
               className="type-animation"
                 style={{ fontSize: '2.5em', display: 'inline-block', color: "whitesmoke", textShadow: "3px 4px 7px black"}}
             />
-            <ImageContainer>
-                <CoverImage src={CoverPhoto} pulse={showPointer} />
-            </ImageContainer>
+            <CoverImage src={"https://www.transparentpng.com/thumb/alien/gKKqgz-smiley-green-alien-emoji-transparent-png.png"} pulse={showPointer} />
             <FloatArea>
               {showPointer && <FloatingClickMe>👆</FloatingClickMe>}
               <br/>
                 <TypeAnimation
                   sequence={[
-                    18000,
+                      1000,
                     () => {
                         setShowPointer(true);
                     },
-                    'Lets see how our past month went...',
-                      2000,
-                      "Click us to 👀",
-                    () => {
-                      console.log('Done');
-                    }
+                      "Click me",
                   ]}
                   wrapper="span"
                   cursor={false}
@@ -195,10 +200,10 @@ function App() {
             }
         </HeartContainer>
         <StarContainer />
-        <RoseImage src={Rose} />
-        <RoseImageRight src={Rose} />
-        <RoseImageBottomLeft src={Rose} />
-        <RoseImageBottomRight src={Rose} />
+        <BrightStar />
+        <BrightStarRight />
+        <BrightStarBottomRight />
+        <BrightStarBottomLeft />
     </div>
   );
 }
